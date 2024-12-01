@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LNU CampusWise</title>
+    <link href="https://cdn.jsdelivr.net/gh/rajnandan1/brutopia@latest/dist/assets/compiled/css/app.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="chatbot.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <div class="outer-container">
+        <div class="inner-container">
+
+            <nav class="navbar fixed-top">
+                <div class="container-fluid top">
+                    <a class="navbar-brand" href="#">
+                        <img src="/resources/lnu-logo.png" alt="logo" height="62px" class="d-inline-block align-text-center" style="margin-bottom: 7px;">
+                        <b style="font-size:larger; font-weight: bolder;">LNU CampusWise</b>
+                    </a>
+                    <a class="btn btn-sm btn-outline-primary rounded-pill" style="margin-top: 2px;">v1.0</a>
+
+                    <div class="flex-grow-1"></div>
+
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">About</a>
+                        </li>
+                        <div class="btn-group" style="margin-left: 16px;">
+                            <button type="btn" class="btn btn-dark dropdown-toggle" style="background-color: #06025c;" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="avatar avatar-sm" style="margin-bottom: 2px;">
+                                    <span class="avatar-content">JP</span>
+                                </div>
+                                Janea Pelps
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><button class="dropdown-item" type="button">Logout</button></li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Conversation Container -->
+            <div id="conversation-container" class="conversationhahaha">
+                <!-- Messages will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Bottom Navbar -->
+        <nav class="navbar fixed-bottom">
+            <div class="container-fluid bottom">
+                <div class="input-group input-group-lg mb-3 me-2">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">
+                        <span class="avatar-content">JP</span>
+                    </span>
+                    <textarea id="query" class="form-control form-control-lg round" placeholder="Type your question..." rows="1" style="resize: none;"></textarea>
+                    <button class="btn btn-light" type="button" id="button-addon2" style="background-color: #06025c;">Submit</button>
+                </div>
+                <div class="col align-text-center">
+                    <img src="https://img.icons8.com/?size=100&id=2800&format=png&color=000000" height="16" width="16" alt="">
+                    <b>Responds based on data from the LNU Undergraduate Student Handbook.</b>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        document.getElementById("button-addon2").addEventListener("click", async function () {
+            const query = document.getElementById("query").value;
+            if (!query.trim()) return; // Avoid empty submissions
+
+            // Clear input field
+            document.getElementById("query").value = "";
+
+            // Display user's message
+            const userMessage = `
+                <div class="col" style="display: flex; flex-direction: column; align-items: flex-end;">
+                    <div style="display: flex; flex-direction: row; align-items: start; text-align: end; max-width: fit-content;">
+                        <p style="margin-right: 8px;">💬 Sent by Janea Pelps<br>${new Date().toLocaleString()}</p>
+                        <div class="avatar avatar-lg" style="margin-bottom: 16px; margin-left: 8px; background-color: rgb(8, 2, 130);">
+                            <div class="avatar-content">JP</div>
+                        </div>
+                    </div>
+                    <div class="card message" style="display: inline-block;">
+                        <div class="card-body">
+                            <h4>${query}</h4>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById("conversation-container").innerHTML += userMessage;
+
+            // Fetch AI response from the backend
+            try {
+                const response = await fetch("http://localhost:3000/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ query }),
+                });
+
+                const data = await response.json();
+                const aiMessage = `
+                    <div class="col" style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class="avatar avatar-lg me-3" style="margin-bottom: 16px;">
+                                <img src="/resources/lnu-logo.png" width="70%" height="70%" alt="" srcset="">
+                            </div>
+                            <p>💬 CampusWise replied<br>${new Date().toLocaleString()}</p>
+                        </div>
+                        <div class="card reply" style="display: inline-block;">
+                            <div class="card-body">
+                                <h4 style="color: white;">${data.response}</h4>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById("conversation-container").innerHTML += aiMessage;
+
+                // Optionally scroll to the latest message
+                document.getElementById("conversation-container").scrollTop = document.getElementById("conversation-container").scrollHeight;
+            } catch (error) {
+                console.error("Error fetching AI response:", error);
+            }
+        });
+    </script>
+</body>
+</html>
