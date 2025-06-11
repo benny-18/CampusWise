@@ -1,0 +1,134 @@
+Project folder structure:
+
+.:
+app  campuswise.txt  node_modules  resources  web
+
+./app:
+chatbot  misc
+
+./app/chatbot:
+embeddings.js  llms.js	loader.js  server.js
+
+./app/misc:
+deleted
+
+./app/misc/deleted:
+ragchain.js
+
+./node_modules:
+abort-controller	    jwa
+accepts			    jws
+agentkeepalive		    @langchain
+ansi-styles		    langchain
+anthropic		    langsmith
+@anthropic-ai		    lodash.includes
+anthropic-ai		    lodash.isboolean
+argparse		    lodash.isinteger
+array-flatten		    lodash.isnumber
+asynckit		    lodash.isplainobject
+axios			    lodash.isstring
+base64-js		    lodash.once
+binary-extensions	    media-typer
+body-parser		    merge-descriptors
+boolbase		    methods
+@browserbasehq		    mime
+buffer-equal-constant-time  mime-db
+bytes			    mime-types
+call-bind		    ms
+camelcase		    mustache
+cheerio			    negotiator
+cheerio-select		    node-domexception
+color			    node-fetch
+color-convert		    nth-check
+color-name		    object-assign
+color-string		    object-inspect
+combined-stream		    ollama
+commander		    on-finished
+content-disposition	    openai
+content-type		    openapi-types
+cookie			    parse5
+cookie-signature	    parse5-htmlparser2-tree-adapter
+cors			    parse5-parser-stream
+css-select		    parseurl
+css-what		    path-to-regexp
+debug			    peek-readable
+decamelize		    p-finally
+deepmerge		    @playwright
+define-data-property	    playwright
+delayed-stream		    playwright-core
+depd			    p-queue
+destroy			    p-retry
+detect-libc		    proxy-addr
+domelementtype		    proxy-from-env
+domhandler		    psl
+dom-serializer		    p-timeout
+domutils		    punycode
+dotenv			    qs
+ecdsa-sig-formatter	    querystringify
+ee-first		    range-parser
+@emnapi			    raw-body
+encodeurl		    readable-stream
+encoding-sniffer	    readable-web-to-node-stream
+entities		    requires-port
+escape-html		    retry
+es-define-property	    retry-axios
+es-errors		    safe-buffer
+etag			    safer-buffer
+eventemitter3		    semver
+event-target-shim	    send
+express			    serve-static
+expr-eval		    set-function-length
+extend			    setprototypeof
+file-type		    sharp
+finalhandler		    side-channel
+flat			    simple-swizzle
+follow-redirects	    statuses
+form-data		    string_decoder
+form-data-encoder	    strtok3
+formdata-node		    toidentifier
+forwarded		    @tokenizer
+fresh			    token-types
+function-bind		    tough-cookie
+get-intrinsic		    tr46
+gopd			    type-is
+hasown			    @types
+has-property-descriptors    undici
+has-proto		    undici-types
+has-symbols		    universalify
+htmlparser2		    unpipe
+http-errors		    url-parse
+humanize-ms		    util-deprecate
+@ibm-cloud		    utils-merge
+ibm-cloud-sdk-core	    uuid
+iconv-lite		    vary
+ieee754			    webidl-conversions
+@img			    web-streams-polyfill
+inherits		    whatwg-encoding
+ipaddr.js		    whatwg-fetch
+is-arrayish		    whatwg-mimetype
+isstream		    whatwg-url
+jsonpointer		    yaml
+jsonwebtoken		    zod
+js-tiktoken		    zod-to-json-schema
+js-yaml
+
+./resources:
+icons  images
+
+./resources/icons:
+logout.png  trash.png
+
+./resources/images:
+avatar.jpg  banner.png	bg.jpg	favicon.ico  lnu-logo.png
+
+./web:
+css  html  js
+
+./web/css:
+chatbot.css  intro.css	login.css  register.css
+
+./web/html:
+chatbot.html  intro.html  login.html  register.html
+
+./web/js:
+chatbot.js
