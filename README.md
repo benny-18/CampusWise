@@ -1,13 +1,15 @@
 # 📘 CampusWise
 
-**CampusWise** is a chatbot-based Student Manual system for undergraduate students of Leyte Normal University. It uses Retrieval-Augmented Generation (RAG) with Ollama’s LLMs and LangChain to answer questions from the handbook via a web interface.
+![CampusWise web](resources/images/campuswise-web.png)
+
+**CampusWise** is a chatbot-based Student Manual system for undergraduate students of Leyte Normal University. It uses Retrieval-Augmented Generation (RAG) with Meta's llama3.2 LLM and LangChain to answer questions from the handbook via a web interface.
 
 ---
 
 ## 🚀 Features
 
 - Retrieves relevant handbook content using document embeddings
-- Answers user queries through **llama3.2** LLM
+- Answers user queries through Meta's **llama3.2** LLM
 - Frontend chat interface served via **Nginx**
 - Backend API built with **Express.js** using RAG chain
 - Easy deployment via **Docker** and **docker-compose**
@@ -80,7 +82,7 @@ This sets up three containers:
     ```bash
     ollama pull llama3.2
     ollama pull mxbai-embed-large
-    ollama run --listen
+    ollama serve
     ```
     
 3. Launch the backend server:
@@ -97,7 +99,7 @@ This sets up three containers:
     
     ```
     http://localhost:3000 => backend API
-    http://localhost:5500/web/html/chatbot.html => frontend chat
+    http://localhost:3001/web/html/chatbot.html => frontend chat
     ```
     
 

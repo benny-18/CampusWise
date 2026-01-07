@@ -48,6 +48,10 @@ app.post("/chat", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.redirect("http://127.0.0.1:3001/web/html/chatbot.html");
+});
+
 app.listen(PORT, () => {
   console.log(`    [?] Server is running on http://localhost:${PORT}`);
   console.log("        Press Ctrl+C to stop server...\n");
