@@ -1,20 +1,28 @@
-# 📘 CampusWise
-
 ![CampusWise web](resources/images/campuswise-web.png)
 
-**CampusWise** is a chatbot-based Student Manual system for undergraduate students of Leyte Normal University. It uses Retrieval-Augmented Generation (RAG) with Meta's llama3.2 LLM and LangChain to answer questions from the handbook via a web interface.
+# LNU CampusWise
 
----
+![Status: Prototype](https://img.shields.io/badge/status-prototype-yellow)
+![Version](https://img.shields.io/badge/version-v1.0-blue)
+![License](https://img.shields.io/github/license/benny-18/CampusWise)
 
-## 🚀 Features
+CampusWise is a lightweight web + Node.js prototype that provides a chatbot UI and a backend API designed to answer questions specifically from the Leyte Normal University (LNU) Undergraduate Student Handbook. It uses a vector-store + LLM chain pattern (via LangChain) to search handbook content and generate context-aware responses.
 
-- Retrieves relevant handbook content using document embeddings
-- Answers user queries through Meta's **llama3.2** LLM
-- Frontend chat interface served via **Nginx**
-- Backend API built with **Express.js** using RAG chain
-- Easy deployment via **Docker** and **docker-compose**
+## 🔍 What this project does
 
----
+- **Chat interface**: A responsive front-end UI for asking handbook-related questions ([web/html/chatbot.html](web/html/chatbot.html)).
+- **Backend API**: An Express-based API that accepts queries and returns LLM responses built from retrieved handbook documents (`app/chatbot/server.js`).
+- **Vector search + LLM**: Uses an embeddings-backed vector store and a LangChain-style document chain to provide context to the LLM.
+
+## ✨ Why this is useful
+
+- Focused answers from a single authoritative source (the LNU Undergraduate Student Handbook).
+- Simple architecture that separates the UI and the API — easy to extend or replace components (LLM provider, vector store, frontend).
+
+## 🔗 Quick links
+
+- **Frontend**: [web/html/chatbot.html](web/html/chatbot.html)
+- **Backend**: [app/chatbot/server.js](app/chatbot/server.js)
 
 ## 🧩 Project Structure
 
@@ -34,40 +42,14 @@
 
 ```
 
----
+## 🚀 Getting started
 
-## 🛠 Pre-requisites
+Notes: this repository contains a prototype implementation. The backend is a Node/Express app that expects a JavaScript runtime and certain dependencies (LangChain, an LLM connector like Ollama, and a vector store). The included `Dockerfile` and `docker-compose.yml`is present but may require edits before use (see note below) as they have not been finished yet, and was for experimentation purpose only.
 
-1. Docker & Docker Compose
-2. Ollama installed and models pulled:
-    
-    ```bash
-    ollama pull llama3.2
-    ollama pull mxbai-embed-large
-    ```
-    
-3. (Optional) Local Node.js v22.x+ for development/test
+Prerequisites
 
----
-
-## 🐳 Running With Docker Compose
-
-In your project root, run:
-
-```bash
-docker-compose up --build
-```
-
-- Backend: [**http://localhost:3000**](http://localhost:3000/)
-- Frontend: [**http://localhost:8080**](http://localhost:8080/)
-
-This sets up three containers:
-
-- **backend**: runs your Express server using Node.js
-- **frontend**: serves static HTML/CSS/JS via Nginx
-- **ollama**: hosts LLM API & serves pulled models
-
----
+- Node.js 18+ and npm installed
+- Ollama / any configured LLM service if you plan to run the LLM locally
 
 ## 🔧 Development Setup (Without Docker)
 
@@ -101,33 +83,36 @@ This sets up three containers:
     http://localhost:3000 => backend API
     http://localhost:3001/web/html/chatbot.html => frontend chat
     ```
-    
 
----
+## 🧭 Usage examples
 
-## 💬 How It Works
+Call the API directly (example using `curl`):
 
-1. **User** types a question → frontend sends it to `/chat` endpoint
-2. **Server** performs similarity search on embeddings, retrieves top chunks
-3. **RAG chain** passes query and context to LLM
-4. **Server response** (JSON) with AI’s answer
-5. **Frontend** appends the AI’s reply in chat UI
+```bash
+curl -X POST http://localhost:3000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What are the undergraduate grading policies?"}'
+```
 
----
+The endpoint returns JSON in the form:
 
-## ✅ Notes
+```json
+{ "response": "...LLM answer based on handbook context..." }
+```
 
-- Ollama models are **mounted** in Docker via volume—no need to pull inside container
-- The frontend JS (`web/js/chatbot.js`) handles user input, POSTs to `/chat`, and renders messages
-- You can customize backend port or frontend routes in `docker-compose.yml`
-- For final defense, highlight:
-    - The RAG retrieval pipeline
-    - Dockerized deployment for easy demonstration
+## ❗ Notes & current limitations
 
----
+- The backend redirects `/` to the local web UI: see `app/chatbot/server.js`.
+- The project is a prototype: some build/dev automation and packaging are incomplete (see Dockerfile comment in Getting Started subheading).
+- The LLM/provider configuration (Ollama or similar) and vector store population (embeddings/loader) must be configured before expecting relevant answers.
 
-## 🧑‍🏫 Credits
+## 🧑‍💻 Credits
 
 - **benny-18** – Development & design
 - **hiyaranari** – Development & design
 - **Leyte Normal University** – Handbook content
+
+## 📄 License
+
+This project is licensed under the terms in the `LICENSE` file.
+
